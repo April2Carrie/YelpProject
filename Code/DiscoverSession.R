@@ -98,6 +98,10 @@ data_cleaning <- function(Corp){
 }
 corp <- construct_corpus(df=review_bus)
 tmp <- data_cleaning(Corp=corp)
+# total number of tokens
+sum(ntoken(tmp))
+# total number of unique tokens
+sum(ntype(tmp))
 # build a dfm to summarize the usage of words in each document
 DFM <- dfm(tmp)
 textplot_wordcloud(DFM, color = rainbow(10),max_size=7, min_size =.5)
