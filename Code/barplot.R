@@ -65,7 +65,7 @@ starsbar1=function(word,review){# shows relative proportion, compared to star di
   review_sub <- review %>% filter(str_detect(text,word))
   # group by star and plot
   tmp <- review_sub %>% group_by(stars) %>% tally()
-  barplt=barplot(height=(tmp$n/sum(tmp$n))/(tmp1$n/sum(tmp1$n)),names=1:5,xlab='stars',ylab='counting percentage',main=word,width = 1,space=0.5)
+  barplt=barplot(height=(tmp$n/sum(tmp$n))/(tmp1$n/sum(tmp1$n)),names=1:5,xlab='stars',ylab='relative proportion',main=word,width = 1,space=0.5)
   #tmp$n/sum(tmp$n) height tmp divided by tmp1 is to eliminate the distribution of stars itself. It shows whether a feature shows more in low/high stars
   return(barplt)
 }
