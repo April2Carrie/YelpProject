@@ -88,12 +88,13 @@ construct_corpus<- function(df){
 
 data_cleaning <- function(Corp){
   # tokenize corpus removing unnecessary (i.e. semantically uninformative) elements
-  toks <- tokens(Corp, remove_punct=T, remove_symbols=T, remove_url = T, 
+  toks <- quanteda::tokens(Corp, remove_punct=T, remove_symbols=T, remove_url = T, 
                  split_tags=T, remove_separators=T)# , remove_numbers=T
   # clean out stopwords and words with 1 character (alphabets)
   toks_nostop <- tokens_select(toks, pattern = c(stopwords("en")), 
                                selection = "remove", min_nchar=1)
-  return(toks_nostop)
+  toks_lemmatized <- tokens_replace(toks_nostop , pattern = lexicon::hash_lemmas$token, replacement = lexicon::hash_lemmas$lemma)
+  return(toks_lemmatized)
 }
 corp <- construct_corpus(df=review_bus)
 tmp <- data_cleaning(Corp=corp)
